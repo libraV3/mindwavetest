@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useProductStore } from '@/stores/mainstore';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
 
 type Product = {

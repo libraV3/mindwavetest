@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import type { Ref, ShallowRef } from 'vue';
+import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
 
 type Product = {
