@@ -16,23 +16,23 @@ export const useProductStore = defineStore('productstore', () => {
     try {
       req = await fetch('http://dev.mindwave.kz/api/sandbox/crud');
       const reqj = await req.json().then((reqj) => reqj.content.rows);
-      console.log(reqj);
       products.value = reqj;
     } catch (err) {
-      console.log('oops');
+      console.log('whoops');
       console.log(err);
     }
   }
 
   async function addProduct(product_name: string, amount: number): Promise<boolean> {
     try {
-      // console.log(JSON.stringify({ product_name: product_name, amount: amount}));
+      console.log(JSON.stringify({ product_name: product_name, amount: amount }));
       const req = await fetch(`http://dev.mindwave.kz/api/sandbox/crud/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ product_name: product_name, product_amount: amount }),
+        body: JSON.stringify({ product_name: product_name, product_amount: Number(amount) }),
+        mode: 'cors',
       });
       return req?.ok;
     } catch (err) {
@@ -42,17 +42,21 @@ export const useProductStore = defineStore('productstore', () => {
   }
 
   async function updateProduct(id: number, product_name: string, amount: number): Promise<boolean> {
+    let req;
     try {
-      const req = await fetch(`http://dev.mindwave.kz/api/sandbox/crud/${id}`, {
+      console.log(JSON.stringify({ product_name: product_name, product_amount: amount }));
+      req = await fetch(`http://dev.mindwave.kz/api/sandbox/crud/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ product_name: product_name, product_amount: amount }),
+        mode: 'cors',
       });
       return req?.ok;
     } catch (err) {
       console.log(err);
+      console.log(req?.headers);
       return false;
     }
   }
@@ -61,6 +65,7 @@ export const useProductStore = defineStore('productstore', () => {
     try {
       const req = await fetch(`http://dev.mindwave.kz/api/sandbox/crud/${id}`, {
         method: 'DELETE',
+        mode: 'cors',
       });
       return req?.ok;
     } catch (err) {

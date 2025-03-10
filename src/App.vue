@@ -5,10 +5,7 @@ import { onMounted } from 'vue';
 const store = useProductStore();
 
 onMounted(() => {
-  store
-    .getProducts()
-    .then(() => console.log('done2'))
-    .catch((err) => console.log(err));
+  store.getProducts().catch((err) => console.log(err));
 });
 </script>
 
